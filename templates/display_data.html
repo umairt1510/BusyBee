@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="">
+<title>Display Data</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container">
+        <div class="row">
+            {% for item in station %}
+            <div class="col-12">
+
+                <div class="card bg-dark text-light m-3">
+                    <div class="card-body text-center">
+
+                        <div class="card-header">
+                            <h2 class="card-title text-left">{{ item[0] }}</h2>
+                            <p class="card-text text-left">{{ item[1] }}</p>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-6">
+                                    <h3>Busy Meter</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="list-item"><span class="badge badge-primary"
+                                                style="font-size:14px;">{{ item[3] }}</span></li>
+                                        <li><a href="{{url_for('enter_data', id=item[4], brand=item[0], address=item[1])}}"
+                                                class="list-item">Update</a></li>
+                                    </ul>
+                                    <div class="dropdown">
+                                        <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            History
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            {% for entry in item[5] %}
+                                            <li class="mx-1 my-1">Busyness level: {{entry[1]}} <span class="badge bg-secondary">{{entry[0]}} mins ago</span></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <h3>Price</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="list-item"><span class="badge badge-primary"
+                                                style="font-size:14px;">{{ item[2] }}</span></li>
+                                        <a href="#" class="list-item">Update</a>
+                                    </ul>
+                                    <div class="dropdown">
+                                        <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            History
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            {% for entry in item[6] %}
+                                            <li class="mx-1 my-1">Price Entry: {{entry[1]}} <span class="badge bg-secondary">{{entry[0]}} mins ago</span></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
