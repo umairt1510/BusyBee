@@ -80,8 +80,7 @@ def display_data():
         busy_list, cost_list = [], []
         stations_found = collection.find_one({"_id": brand_id})
         if (stations_found):
-            station_price_list = stations_found['price']
-            station_busy_list = stations_found['busy_status']
+            station_price_list, station_busy_list = stations_found['price'], stations_found['busy_status']
             date_now = datetime.datetime.now()
             for score in station_busy_list or []:
                 time = score[0][1]
