@@ -49,9 +49,7 @@ def enter_data(id, brand, address):
             station_data = station.json()['features']
             for suggestion in station_data:
                 station_info = suggestion["properties"]
-                id_station = station_info["mapbox_id"]
-                name = station_info['name']
-                location = station_info['full_address']
+                id_station, name, location = station_info["mapbox_id"], station_info['name'], station_info['full_address']
             if id_station == 'M':
                 message = f"A Gas Station does not exist at address: {location}"
                 flash(message)
@@ -77,15 +75,10 @@ def display_data():
     stations = []
     for suggestion in data:
         info = suggestion["properties"]
-        brand_id = info['mapbox_id']
-        brand_name = info['name']
-        address = info['full_address']
+        brand_id, brand_name, address = info['mapbox_id'], info['name'], info['full_address']
+        cost, total_busy_score, total_weight = 0, 0, 0
+        busy_list, cost_list = [], []
         stations_found = collection.find_one({"_id": brand_id})
-        cost = 0
-        total_busy_score = 0
-        total_weight = 0
-        busy_list = []
-        cost_list = []
         if (stations_found):
             station_price_list = stations_found['price']
             station_busy_list = stations_found['busy_status']
